@@ -1,19 +1,14 @@
 {
-    "name": "restberry-utils",
-    "version": "0.1.0",
-    "description": "",
-    "main": "index.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/materik/restberry-utils.git"
-    },
-    "keywords": [
-        "restberry",
-        "utils"
-    ],
     "author": {
         "name": "Mattias Eriksson",
         "email": "materik@me.com"
+    },
+    "bugs": {
+        "url": "https://github.com/materik/restberry-utils/issues"
+    },
+    "dependencies": {
+        "underscore": "1.5.x",
+        "underscore.string": "2.3.x"
     },
     "contributors": [
         {
@@ -22,15 +17,20 @@
         }
     ],
     "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/materik/restberry-utils/issues"
-    },
-    "dependencies": {
-        "underscore": "1.5.x",
-        "underscore.string": "2.3.x"
-    },
+    "description": "Contains useful utils methods",
     "homepage": "http://restberry.com",
+    "keywords": [
+        "restberry",
+        "utils"
+    ],
+    "main": "index.js",
+    "name": "restberry-utils",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/materik/restberry-utils.git"
+    },
     "scripts": {
         "test": "nodeunit ./test.js"
-    }
+    },
+    "version": "0.1.0"
 }
