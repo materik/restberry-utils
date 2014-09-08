@@ -6,23 +6,23 @@
     "bugs": {
         "url": "https://github.com/materik/restberry-utils/issues"
     },
-    "dependencies": {
-        "underscore": "1.5.x",
-        "underscore.string": "2.3.x"
-    },
     "contributors": [
         {
             "name": "Mattias Eriksson",
             "email": "materik@me.com"
         }
     ],
-    "license": "MIT",
+    "dependencies": {
+        "underscore": "1.5.x",
+        "underscore.string": "2.3.x"
+    },
     "description": "Contains useful utils methods",
     "homepage": "http://restberry.com",
     "keywords": [
         "restberry",
         "utils"
     ],
+    "license": "MIT",
     "main": "index.js",
     "name": "restberry-utils",
     "repository": {
