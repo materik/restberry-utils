@@ -17,6 +17,10 @@
         "underscore.string": "2.3.x"
     },
     "description": "Contains useful utils methods",
+    "devDependencies": {
+        "jscs": "1.12.x",
+        "jshint": "2.6.x"
+    },
     "homepage": "http://restberry.com",
     "keywords": [
         "restberry",
@@ -30,7 +34,8 @@
         "url": "https://github.com/materik/restberry-utils.git"
     },
     "scripts": {
-        "test": "nodeunit ./test.js"
+        "test": "mocha ./test.js",
+        "validate": "jscs *.js && jshint *.js"
     },
-    "version": "0.1.2"
+    "version": "1.0.0"
 }
