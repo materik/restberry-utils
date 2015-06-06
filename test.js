@@ -21,6 +21,23 @@ describe('utils', function() {
         callback();
     });
 
+    it('censorPassword', function(callback) {
+        var m = utils.censorPassword;
+        assert.equal(m(undefined), undefined);
+        assert.equal(m('asdf1234'), '**********');
+        assert.deepEqual(m({password: 'asdf1234'}),
+                         {password: '**********'});
+        assert.deepEqual(m({name: 'myname', password: 'asdf1234'}),
+                         {name: 'myname', password: '**********'});
+        assert.deepEqual(m({nested: {password: 'asdf1234'}}),
+                         {nested: {password: '**********'}});
+        assert.deepEqual(m({nested: [{password: 'asdf1234'}, 1]}),
+                         {nested: [{password: '**********'}, 1]});
+        assert.deepEqual(m({nested: {password: {encrypt: 'asdf1234'}}}),
+                         {nested: {password: '**********'}});
+        callback();
+    });
+
     it('getPaths', function(callback) {
         var m = utils.getPaths;
         var x = {'x': 1, 'y': 2};

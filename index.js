@@ -5,6 +5,8 @@ var crypto = require('crypto');
 var CRYPTO_BASE_64 = 'base64';
 var CRYPTO_HEX = 'hex';
 var CRYPTO_SHA1 = 'sha1';
+var PASSWORD_KEY = 'password';
+var PASSWORD_CENSOR = '**********';
 var PATH_ID = ':id';
 var REGEX_EMAIL = /[\w\d_]+@\w+\.\w+[\w\.]*/;
 var REGEX_MONTH = /20\d{2}\-(0(?=[1-9])|1(?=[0-2]{1}))\d{1}/;
@@ -17,7 +19,7 @@ var STR_EMPTY = '';
 var STR_ZERO = '0';
 var STR_ZERO_DOT = '0.';
 
-module.exports = {
+var utils = {
 
     base64encode: function(str) {
         return new Buffer(str).toString(CRYPTO_BASE_64);
@@ -26,6 +28,25 @@ module.exports = {
     camelCaseStr: function(str) {
         str = str.toLowerCase();
         return _s.camelize(str);
+    },
+
+    censorPassword: function(data) {
+        if (!data) {
+            return data;
+        } else if (_.isString(data)) {
+            return PASSWORD_CENSOR;
+        }
+        for (var key in data) {
+            var val = data[key];
+            if (key === PASSWORD_KEY) {
+                data[key] = PASSWORD_CENSOR;
+            } else {
+                if (_.isObject(val) && !_.isFunction(val)) {
+                    data[key] = utils.censorPassword(val);
+                }
+            }
+        }
+        return data;
     },
 
     dotGet: function(obj, key) {
@@ -157,3 +178,5 @@ module.exports = {
     },
 
 };
+
+module.exports = utils;
