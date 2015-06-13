@@ -90,7 +90,7 @@ describe('utils', function() {
     it('isValidEmail', function(callback) {
         var m = utils.isValidEmail;
         assert(!m(null));
-        assert(m('materik@me.com'));
+        assert(m('thematerik@gmail.com'));
         assert(m('materik@student.chalmers.se'));
         assert(m('erixs_21@hotmail.com'));
         assert(m('a@b.c'));
