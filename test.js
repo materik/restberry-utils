@@ -81,6 +81,10 @@ describe('utils', function() {
         a = m(a, 'a.c.d', 2);
         expected = {a: {b: 1, c: {d: 2}}};
         assert.deepEqual(a, expected);
+        a = {a: '123'};
+        a = m(a, 'a.b', 1);
+        expected = {a: {b: 1}};
+        assert.deepEqual(a, expected);
         callback();
     });
 

@@ -82,7 +82,7 @@ var utils = {
         var keySplit = key.split(STR_DOT);
         var key = keySplit.shift();
         var keyRest = keySplit.join(STR_DOT);
-        obj = obj || {};
+        obj = _.isObject(obj) ? obj : {};
         obj[key] = utils.dotSet(obj[key], keyRest, val);
         return obj;
     },
