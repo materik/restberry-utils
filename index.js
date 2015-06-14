@@ -21,6 +21,20 @@ var STR_ZERO_DOT = '0.';
 
 var utils = {
 
+    _merge: function(target, source) {
+        for (var prop in source) {
+            target = target || {};
+            if (prop in target) {
+                if (_.isObject(target[prop])) {
+                    utils._merge(target[prop], source[prop]);
+                }
+            } else {
+                target[prop] = source[prop];
+            }
+        }
+        return target;
+    },
+
     base64encode: function(str) {
         return new Buffer(str).toString(CRYPTO_BASE_64);
     },
@@ -62,16 +76,15 @@ var utils = {
     },
 
     dotSet: function(obj, key, val) {
-        var ret = obj;
+        if (!key) {
+            return val;
+        }
         var keySplit = key.split(STR_DOT);
-        var lastKey = keySplit.pop();
-        for (var i in keySplit) {
-            var k = keySplit[i];
-            ret = ret[k];
-        }
-        if (ret) {
-            ret[lastKey] = val;
-        }
+        var key = keySplit.shift();
+        var keyRest = keySplit.join(STR_DOT);
+        obj = obj || {};
+        obj[key] = utils.dotSet(obj[key], keyRest, val);
+        return obj;
     },
 
     forEachAndDone: function(objs, iter, done) {
@@ -162,6 +175,14 @@ var utils = {
 
     makeSalt: function() {
         return Math.round((new Date().valueOf() * Math.random())) + STR_EMPTY;
+    },
+
+    merge: function() {
+        var merger = {};
+        _.each(_.values(arguments), function(arg) {
+            merger = utils._merge(merger, arg);
+        });
+        return merger;
     },
 
     prependZeros: function(str, length) {

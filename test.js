@@ -38,6 +38,52 @@ describe('utils', function() {
         callback();
     });
 
+    it('dotGet', function(callback) {
+        var m = utils.dotGet;
+        var a = {a: 1};
+        var x = m(a, 'a');
+        var expected = 1;
+        assert.deepEqual(x, expected);
+        a = {a: {b: 1}};
+        x = m(a, 'a.b');
+        expected = 1;
+        assert.deepEqual(x, expected);
+        a = {a: {b: 1}};
+        x = m(a, 'a.c');
+        expected = undefined;
+        assert.deepEqual(x, expected);
+        a = {a: {b: 1, c: {d: 3}}};
+        x = m(a, 'a.c.d');
+        expected = 3;
+        assert.deepEqual(x, expected);
+        callback();
+    });
+
+    it('dotSet', function(callback) {
+        var m = utils.dotSet;
+        var a = {a: 1};
+        a = m(a, 'a', 2);
+        var expected = {a: 2};
+        assert.deepEqual(a, expected);
+        a = {a: 1};
+        a = m(a, 'b', 2);
+        expected = {a: 1, b: 2};
+        assert.deepEqual(a, expected);
+        a = {a: {b: 1}};
+        a = m(a, 'a.b', 2);
+        expected = {a: {b: 2}};
+        assert.deepEqual(a, expected);
+        a = {a: {b: 1}};
+        a = m(a, 'a.c', 2);
+        expected = {a: {b: 1, c: 2}};
+        assert.deepEqual(a, expected);
+        a = {a: {b: 1}};
+        a = m(a, 'a.c.d', 2);
+        expected = {a: {b: 1, c: {d: 2}}};
+        assert.deepEqual(a, expected);
+        callback();
+    });
+
     it('getPaths', function(callback) {
         var m = utils.getPaths;
         var x = {'x': 1, 'y': 2};
@@ -129,6 +175,23 @@ describe('utils', function() {
         assert.equal(m('123', 3), '123');
         assert.equal(m('123', 4), '0123');
         assert.equal(m('123', 5), '00123');
+        callback();
+    });
+
+    it('merge', function(callback) {
+        var a = {a: 1};
+        var b = {b: 2};
+        var c = {c: 3, b: 3};
+        var merger = {a: 1, b: 2, c: 3};
+        assert.deepEqual(utils.merge(a, b, c), merger);
+        a = {a: {a: 1}};
+        b = {a: {b: 2}};
+        merger = {a: {a: 1, b: 2}};
+        assert.deepEqual(utils.merge(a, b), merger);
+        a = {ids: {google: '321'}, email: '321'};
+        b = {ids: {github: '123'}, email: '123'};
+        merger = {ids: {github: '123', google: '321'}, email: '321'};
+        assert.deepEqual(utils.merge(a, b), merger);
         callback();
     });
 
