@@ -16,7 +16,7 @@
         "underscore": "1.8.x",
         "underscore.string": "2.3.x"
     },
-    "description": "Contains useful utils methods",
+    "description": "Restberry utils",
     "devDependencies": {
         "jscs": "1.12.x",
         "jshint": "2.6.x"
@@ -37,5 +37,5 @@
         "test": "mocha ./test.js",
         "validate": "jscs *.js && jshint *.js"
     },
-    "version": "1.0.5"
+    "version": "1.0.6"
 }
