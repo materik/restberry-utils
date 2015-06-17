@@ -2,6 +2,7 @@ var _ = require('underscore');
 var _s = require('underscore.string');
 var crypto = require('crypto');
 
+var CALL_STACK_SIZE_LIMIT = 10;
 var CRYPTO_BASE_64 = 'base64';
 var CRYPTO_HEX = 'hex';
 var CRYPTO_SHA1 = 'sha1';
@@ -21,12 +22,17 @@ var STR_ZERO_DOT = '0.';
 
 var utils = {
 
-    _merge: function(target, source) {
+    _merge: function(target, source, callStackSize) {
+        callStackSize = callStackSize || 0;
+        if (callStackSize > CALL_STACK_SIZE_LIMIT) {
+            throw Error('utils.merge: call stack exceeded limit');
+            return;
+        }
         for (var prop in source) {
             target = target || {};
             if (prop in target) {
                 if (_.isObject(target[prop])) {
-                    utils._merge(target[prop], source[prop]);
+                    utils._merge(target[prop], source[prop], ++callStackSize);
                 }
             } else {
                 target[prop] = source[prop];
